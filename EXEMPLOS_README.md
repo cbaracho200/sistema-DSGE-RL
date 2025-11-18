@@ -141,8 +141,7 @@ df = pd.read_csv('seus_dados.csv', index_col=0, parse_dates=True)
 CONFIG = {
     'max_vars': 4,              # Top-4 variáveis (ao invés de 5)
     'forecast_horizon': 12,     # 12 meses à frente
-    'granger_maxlag': 6,        # Testa até 6 lags
-    'min_train_size': 24,       # Mínimo 24 meses para treino
+    'ar_order': 2,              # Ordem AR do fator dinâmico
     'verbose': True
 }
 ```

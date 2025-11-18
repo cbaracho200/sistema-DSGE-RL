@@ -38,8 +38,7 @@ print("="*80)
 CONFIG = {
     'max_vars': 4,              # Seleciona top-4 variáveis
     'forecast_horizon': 12,     # Horizonte de 12 meses
-    'granger_maxlag': 6,        # Testa até 6 lags no Granger
-    'min_train_size': 24,       # Mínimo 24 meses para treino
+    'ar_order': 2,              # Ordem AR do fator dinâmico
     'verbose': True
 }
 
