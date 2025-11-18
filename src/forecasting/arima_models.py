@@ -103,9 +103,18 @@ class ARIMAForecaster:
                 best_order = (p, d, q)
 
             if verbose and count % 10 == 0:
-                print(f"  Progresso: {count}/{total}, Melhor até agora: {best_order} ({criterion.upper()}={best_score:.2f})")
+                if best_score < np.inf:
+                    print(f"  Progresso: {count}/{total}, Melhor até agora: ARIMA{best_order} ({criterion.upper()}={best_score:.2f})")
+                else:
+                    print(f"  Progresso: {count}/{total}, Nenhum modelo convergiu ainda...")
 
-        if verbose:
+        # Fallback se nenhum modelo convergiu
+        if best_order is None or best_score == np.inf:
+            if verbose:
+                print(f"\n⚠ Nenhum modelo ARIMA convergiu. Usando fallback: ARIMA(1,1,1)")
+            best_order = (1, 1, 1)  # Fallback padrão
+            best_score = np.nan
+        elif verbose:
             print(f"\n✓ Melhor ordem: ARIMA{best_order}, {criterion.upper()}={best_score:.2f}")
 
         return best_order
@@ -161,9 +170,19 @@ class ARIMAForecaster:
                 best_seasonal = seasonal_order
 
             if verbose and count % 20 == 0:
-                print(f"  Progresso: {count}/{total}, Melhor: SARIMA{best_order}{best_seasonal}, {criterion.upper()}={best_score:.2f}")
+                if best_score < np.inf:
+                    print(f"  Progresso: {count}/{total}, Melhor: SARIMA{best_order}{best_seasonal}, {criterion.upper()}={best_score:.2f}")
+                else:
+                    print(f"  Progresso: {count}/{total}, Nenhum modelo convergiu ainda...")
 
-        if verbose:
+        # Fallback se nenhum modelo convergiu
+        if best_order is None or best_score == np.inf:
+            if verbose:
+                print(f"\n⚠ Nenhum modelo SARIMA convergiu. Usando fallback: SARIMA(1,1,1)(1,1,1,{s})")
+            best_order = (1, 1, 1)
+            best_seasonal = (1, 1, 1, s)
+            best_score = np.nan
+        elif verbose:
             print(f"\n✓ Melhor ordem: SARIMA{best_order}{best_seasonal}, {criterion.upper()}={best_score:.2f}")
 
         return best_order, best_seasonal
@@ -191,6 +210,20 @@ class ARIMAForecaster:
         """
         self.endog_name = endog.name or 'target'
         self.data_index = endog.index
+
+        # Valida a série
+        endog_clean = endog.dropna()
+        if len(endog_clean) < 10:
+            raise ValueError(f"Série muito curta após remover NaN: {len(endog_clean)} observações (mínimo: 10)")
+
+        # Check se série é constante
+        if endog_clean.std() < 1e-10:
+            raise ValueError(f"Série é praticamente constante (std={endog_clean.std():.2e}). "
+                           "ARIMA não pode ser ajustado. Verifique seus dados.")
+
+        # Check valores infinitos
+        if np.isinf(endog_clean).any():
+            raise ValueError("Série contém valores infinitos. Remova-os antes de ajustar.")
 
         # Seleção automática
         if auto and order is None:
