@@ -439,6 +439,59 @@ metrics = evaluator.compute_metrics(eval_df, by_horizon=True)
 7. **Ensemble**:
    - Timmermann, A. (2006). Forecast combinations.
 
+## 🔧 Diagnóstico e Solução de Problemas
+
+### Ferramentas de Diagnóstico
+
+Se você encontrar problemas com modelos ARIMA não convergindo, use as ferramentas de diagnóstico:
+
+#### 1. Diagnóstico Básico
+```bash
+python diagnostico_serie.py
+```
+
+Verifica:
+- Propriedades básicas da série (tamanho, NaN, infinitos)
+- Séries constantes ou com baixa variabilidade
+- Autocorrelação básica
+
+#### 2. Diagnóstico ARIMA Completo
+```python
+from diagnostico_arima import full_arima_diagnosis
+full_arima_diagnosis(sua_serie, name="Minha Série")
+```
+
+Fornece:
+- Testes de estacionariedade (ADF, KPSS)
+- Análise ACF/PACF com interpretação
+- Teste de 9 modelos ARIMA específicos
+- Recomendações acionáveis
+
+### Guias de Solução de Problemas
+
+- **[GUIA_DIAGNOSTICO_ARIMA.md](GUIA_DIAGNOSTICO_ARIMA.md)**: Guia completo para diagnosticar problemas de convergência ARIMA
+- **[ERROS_COMUNS.py](ERROS_COMUNS.py)**: Exemplos de erros comuns e como corrigi-los
+- **[GUIA_RAPIDO_VARIAVEIS.md](GUIA_RAPIDO_VARIAVEIS.md)**: Como definir variáveis de previsão
+
+### Problemas Comuns
+
+**Erro: "Nenhum modelo ARIMA convergiu"**
+```bash
+# Execute o diagnóstico completo
+python diagnostico_arima.py
+
+# Veja o guia detalhado
+cat GUIA_DIAGNOSTICO_ARIMA.md
+```
+
+**Erro: "Série é praticamente constante"**
+- Verifique se suas variáveis de entrada têm variabilidade
+- Revise o processo de construção do IDCI-VIX
+
+**Erro: "Série muito curta"**
+- Mínimo recomendado: 50 observações
+- Considere usar modelos mais simples (Ridge, Lasso)
+
 ## 🛠️ Desenvolvimento
 
 ### Testes
