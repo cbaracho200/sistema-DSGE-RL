@@ -260,14 +260,34 @@ pip install -r requirements.txt
 
 ## 💻 Uso Rápido
 
+### Formato dos Dados
+
+Seus dados devem estar em um DataFrame pandas:
+
 ```python
 import pandas as pd
+
+# ← AQUI VOCÊ COLOCA SUAS VARIÁVEIS
+df = pd.DataFrame({
+    'preco_m2': [...],           # Variável 1 (pode ser target)
+    'lancamentos': [...],        # Variável 2 (pode ser feature)
+    'credito_imob': [...],       # Variável 3 (pode ser feature)
+    'emprego_construcao': [...], # Variável 4 (pode ser feature)
+    # ... adicione quantas quiser
+}, index=datas_mensais)  # Índice = datas
+```
+
+### Modo 1: Automático (Recomendado) ⭐
+
+O sistema cria o **IDCI-VIX** automaticamente:
+
+```python
 from src.pipeline import VitoriaForecastPipeline
 
-# Carrega dados (mensais, já deflacionados e em log)
+# Carrega TODAS as suas variáveis
 df = pd.read_csv('data/raw/vitoria_dados.csv', index_col=0, parse_dates=True)
 
-# Inicializa pipeline
+# Pipeline automático
 pipeline = VitoriaForecastPipeline(
     max_vars=5,              # Top-5 variáveis
     forecast_horizon=12,     # 12 meses à frente
@@ -275,22 +295,43 @@ pipeline = VitoriaForecastPipeline(
     verbose=True
 )
 
-# Executa pipeline completo
-results = pipeline.run_full_pipeline(
-    df,
-    models_to_train=['arima', 'ridge', 'lasso', 'random_forest', 'quantile'],
-    ensemble_method='weighted_avg'
-)
+# Executa tudo de uma vez
+results = pipeline.run_full_pipeline(df)
 
 # Resultados
-idci_vix = results['idci_vix']           # Índice histórico
-forecasts = results['forecasts']         # Previsões por modelo
-ensemble = results['ensemble']           # Previsão combinada
-selected_vars = results['selected_vars'] # Variáveis selecionadas
-
-print(f"IDCI-VIX atual: {idci_vix.iloc[-1]:.2f}")
-print(f"Previsão 12M: {ensemble['forecast'].iloc[0]:.2f}")
+print(f"IDCI-VIX atual: {results['idci_vix'].iloc[-1]:.2f}")
+print(f"Previsão 12M: {results['ensemble']['forecast'].iloc[0]:.2f}")
+print(f"Variáveis usadas: {results['selected_vars']}")
 ```
+
+### Modo 2: Target Customizado 🎯
+
+Prever uma variável específica:
+
+```python
+# ← ESCOLHE O QUE PREVER
+target = df['preco_m2']  # Sua variável alvo
+
+# ← ESCOLHE QUAIS USAR
+exog = df[['lancamentos', 'credito_imob', 'emprego_construcao']]
+
+# Pipeline
+pipeline = VitoriaForecastPipeline(max_vars=5, forecast_horizon=12)
+pipeline.preprocess(exog)
+pipeline.select_variables()
+
+# Treina com SEU target
+pipeline.train_models(
+    target=target,  # ← Variável para prever
+    exog=pipeline.data_stationary[pipeline.selected_vars]
+)
+
+forecasts = pipeline.forecast_all(target=target, exog=...)
+```
+
+**📖 Para mais detalhes, veja:**
+- [GUIA_RAPIDO_VARIAVEIS.md](GUIA_RAPIDO_VARIAVEIS.md) - Guia completo
+- [exemplos_target_custom.py](exemplos_target_custom.py) - Exemplos práticos
 
 ## 📈 Exemplo de Saída
 
