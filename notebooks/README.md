@@ -1,85 +1,99 @@
-# 📊 Notebooks de Análise Geoespacial Imobiliária
+# 📊 Notebooks - Sistema de Previsão de Mercado Imobiliário
 
-Este diretório contém notebooks Jupyter com exemplos práticos de análise geoespacial e viabilidade de empreendimentos imobiliários, com design minimalista em preto e branco.
+Exemplos práticos de uso do **Sistema DSGE-RL** para previsões de mercado imobiliário de Vitória/ES.
+
+## 🎯 Sobre o Sistema
+
+Este sistema utiliza:
+- **Modelos de Séries Temporais** (ARIMA, SARIMA, SARIMAX)
+- **Machine Learning** (Ridge, Lasso, Random Forest)
+- **Regressão Quantílica** para cenários
+- **Ensemble Learning** para combinar previsões
+- **Índice IDCI-VIX** (0-10) como indicador de confiança do mercado
+
+---
 
 ## 📚 Notebooks Disponíveis
 
-### 1️⃣ `01_basico_carregamento_visualizacao.ipynb`
-**Nível: Básico**
+### 🚀 01_inicio_rapido.ipynb
+**Nível: Básico** | **Tempo: ~10 min**
 
-Introdução ao carregamento e visualização de dados imobiliários.
+Introdução ao sistema de previsão.
 
-**Conteúdo:**
-- Carregamento de dados em formato Parquet
-- Estatísticas descritivas
-- Gráficos de distribuição (área, CA, TO, altura)
-- Análise por bairro
-- Análise de preços e vendas
-- Performance de incorporadores
+**O que você aprende:**
+- Carregar dados de mercado
+- Executar pipeline de previsão completo
+- Visualizar índice IDCI-VIX
+- Interpretar previsões de 12 meses
+- Gerar relatório executivo
 
-**Ideal para:** Iniciantes que querem entender os dados disponíveis.
+**Ideal para:** Primeiro contato com o sistema
 
----
-
-### 2️⃣ `02_analise_espacial_mapas.ipynb`
-**Nível: Intermediário**
-
-Análise espacial e criação de mapas interativos.
-
-**Conteúdo:**
-- Manipulação de dados geoespaciais com GeoPandas
-- Mapas estáticos com matplotlib
-- Mapas interativos com Folium
-- Análise de proximidade e buffers
-- Densidade espacial (KDE)
-- Clustering espacial (DBSCAN)
-- Mapas de calor
-
-**Ideal para:** Análise de localização e distribuição espacial de empreendimentos.
+**Resultado:**
+- IDCI-VIX histórico
+- Previsões de 12 meses
+- Variáveis mais importantes
+- Recomendações automatizadas
 
 ---
 
-### 3️⃣ `03_analise_mercado_graficos.ipynb`
-**Nível: Intermediário**
+### 📈 02_previsao_precos.ipynb
+**Nível: Intermediário** | **Tempo: ~20 min**
 
-Análise profunda do mercado imobiliário com gráficos avançados.
+Previsão detalhada de preços por m².
 
-**Conteúdo:**
-- Dashboard de indicadores (KPIs)
-- Análise comparativa de preços por bairro
-- Matriz de correlação
-- Performance de vendas
-- Segmentação por tipologia
-- Análise de VGV (Valor Geral de Vendas)
-- Relatório executivo
+**O que você aprende:**
+- Usar modelos específicos para preço
+- Intervalos de confiança
+- Análise de tendências
+- Comparação com histórico
+- Validação de previsões
 
-**Ideal para:** Análise de mercado e inteligência competitiva.
+**Ideal para:** Precificação e análise de tendências
 
 ---
 
-### 4️⃣ `04_avancado_analise_viabilidade.ipynb`
-**Nível: Avançado**
+### 🎲 03_analise_cenarios.ipynb
+**Nível: Intermediário** | **Tempo: ~25 min**
 
-Análise completa de viabilidade econômica de empreendimentos.
+Simulação de cenários econômicos.
 
-**Conteúdo:**
-- Cálculo de potencial construtivo
-- Otimização de mix de produtos
-- Análise de viabilidade econômica (VGV, custos, margem, ROI)
+**O que você aprende:**
+- Simular diferentes cenários (otimista, base, pessimista)
 - Análise de sensibilidade
-- Machine Learning para predição de preços
-- Dashboard comparativo de lotes
-- Ranking de oportunidades
+- Quantis de previsão
+- Stress testing
+- Planejamento estratégico
 
-**Ideal para:** Análise de viabilidade e tomada de decisão de investimentos.
+**Ideal para:** Tomada de decisão sob incerteza
 
 ---
 
-## 🚀 Começando
+### ⚙️ 04_otimizacao_parametros.ipynb
+**Nível: Avançado** | **Tempo: ~30 min**
 
-### Instalação
+Comparação e otimização de modelos.
 
-1. **Criar ambiente virtual (recomendado):**
+**O que você aprende:**
+- Avaliar performance de modelos
+- Otimizar hiperparâmetros
+- Validação cruzada temporal
+- Seleção do melhor modelo
+- Customizar ensemble
+
+**Ideal para:** Maximizar acurácia das previsões
+
+---
+
+## 🚀 Instalação
+
+### 1. Clonar repositório
+```bash
+git clone https://github.com/cbaracho200/sistema-DSGE-RL.git
+cd sistema-DSGE-RL
+```
+
+### 2. Criar ambiente virtual
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
@@ -87,179 +101,205 @@ source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate  # Windows
 ```
 
-2. **Instalar dependências:**
+### 3. Instalar dependências
 ```bash
-cd notebooks
 pip install -r requirements.txt
 ```
 
-3. **Iniciar Jupyter:**
+### 4. Iniciar Jupyter
 ```bash
+cd notebooks/examples
 jupyter notebook
 ```
 
-### Estrutura de Dados
-
-Os notebooks esperam encontrar dados nos seguintes formatos:
-
-#### Dados de Vitória (Lotes)
-```
-Colunas: codLote, logradouro, numero, bairro, sigla_trat, area_terreno,
-         ca, to, limite_altura, afast_frontal, limite_embasamento,
-         gabarito, altura, geometry, inscricaoImobiliaria, tipoConstrucao,
-         numeroPavimentos, ocupacao
-```
-
-#### Dados de Imóveis
-```
-Colunas: Incorporador, Empreendimento, Bairro, Endereco, Cidade, Dormitorios,
-         Metragem Privativa, Vagas, Preco Total, Status, Unidades Total,
-         Unidades Vendidas, Estoque Atual
-```
-
-### Localização dos Arquivos
-
-```
-data/
-├── raw/
-│   ├── vitoria_lotes.parquet
-│   └── imoveis.parquet
-└── processed/
-    └── (arquivos gerados pelos notebooks)
-```
-
-**Nota:** Se os arquivos não existirem, os notebooks criarão dados de exemplo automaticamente.
-
 ---
 
-## 📊 Fluxo de Trabalho Recomendado
+## 📊 Estrutura de Dados
 
+O sistema espera dados em formato **CSV** ou **Parquet** com:
+
+### Colunas Esperadas
+- `index`: Data (formato YYYY-MM-DD, frequência mensal)
+- `preco_m2`: Preço médio por m² (númer)
+- `lancamentos`: Número de lançamentos
+- `credito_imob`: Volume de crédito imobiliário
+- `emprego_construcao`: Emppregos na construção
+- `massa_salarial`: Massa salarial total
+- `pib_es`: PIB do Espírito Santo
+- `selic`: Taxa Selic
+- *Outras variáveis relevantes*
+
+### Exemplo de Formato
+```csv
+data,preco_m2,lancamentos,credito_imob,emprego,selic
+2020-01-01,5200,120,1500000,45000,4.5
+2020-02-01,5250,115,1520000,45200,4.25
+...
 ```
-1. Notebook 01 → Entender os dados disponíveis
-                  ↓
-2. Notebook 02 → Análise espacial e distribuição geográfica
-                  ↓
-3. Notebook 03 → Análise de mercado e precificação
-                  ↓
-4. Notebook 04 → Análise de viabilidade e decisão
+
+### Carregar Dados
+```python
+# CSV
+df = pd.read_csv('../data/raw/dados_mercado.csv',
+                 index_col='data', parse_dates=True)
+
+# Parquet
+df = pd.read_parquet('../data/raw/dados_mercado.parquet')
 ```
 
 ---
 
-## 🎨 Design
+## 🎨 Design dos Gráficos
 
-Todos os notebooks seguem um **design minimalista em preto e branco**:
-- Gráficos em escala de cinza
-- Layout limpo e profissional
+Todos os notebooks usam design **minimalista em preto e branco**:
+- Escalas de cinza
+- Layout limpo
 - Foco na informação
-- Ideal para relatórios e apresentações
+- Ideal para relatórios profissionais
 
 ---
 
-## 💡 Casos de Uso
+## 💡 Fluxo de Trabalho Recomendado
 
-### Para Incorporadoras
-- Identificar oportunidades de terrenos
-- Otimizar mix de produtos
-- Análise de viabilidade de projetos
-- Precificação de unidades
-
-### Para Investidores
-- Análise de mercado
-- Identificação de regiões valorizadas
-- Avaliação de ROI
-- Comparação de oportunidades
-
-### Para Corretoras
-- Inteligência de mercado
-- Análise de competidores
-- Tendências de preços
-- Performance de vendas
+```
+1. Notebook 01 → Entender o sistema e IDCI-VIX
+                  ↓
+2. Notebook 02 → Prever preços específicos
+                  ↓
+3. Notebook 03 → Simular cenários alternativos
+                  ↓
+4. Notebook 04 → Otimizar para máxima acurácia
+```
 
 ---
 
-## 📦 Arquivos Gerados
+## 📦 Resultados Gerados
 
-Os notebooks geram os seguintes arquivos processados:
+Os notebooks geram arquivos em `data/processed/`:
 
 ```
 data/processed/
-├── lotes_processados.parquet
-├── imoveis_processados.parquet
-├── lotes_com_clusters.geojson
-├── lotes_com_analise_espacial.parquet
-├── mapa_lotes_interativo.html
-├── mapa_calor_lotes.html
-├── resumo_mercado.csv
-├── resumo_mercado.json
-├── analise_viabilidade_lotes.csv
-├── analise_viabilidade_lotes.parquet
-└── relatorio_viabilidade.json
+├── idci_vix.csv                    # Índice histórico
+├── previsao_ensemble_12m.csv       # Previsão combinada
+├── previsoes_todos_modelos.csv     # Todas as previsões
+├── cenarios_quantis.csv            # Cenários (otim/base/pess)
+└── metricas_modelos.csv            # Performance de cada modelo
 ```
 
 ---
 
-## 🔧 Personalização
+## 🔧 Configuração do Pipeline
 
-### Parâmetros Urbanísticos
-Ajuste no Notebook 04:
+### Parâmetros Principais
+
 ```python
-# Alterar coeficientes
-area_computavel = lote['area_terreno'] * lote['ca']
-area_projecao = lote['area_terreno'] * lote['to']
+pipeline = VitoriaForecastPipeline(
+    max_vars=5,              # Variáveis a selecionar (3-7)
+    forecast_horizon=12,     # Meses à frente (6-24)
+    ar_order=2,              # Ordem AR (1-4)
+    verbose=True             # Mostrar progresso
+)
 ```
 
-### Custos de Construção
-Ajuste no Notebook 04:
-```python
-custo_construcao_m2 = 4500  # Ajustar valor
-preco_terreno_m2 = 3000     # Ajustar valor
-```
+### Modelos Disponíveis
 
-### Mix de Produtos
-Ajuste no Notebook 04:
-```python
-# Alterar distribuição
-mix['1 dorm'] = int(area_disponivel * 0.10 / tipologias['1 dorm']['area'])
-mix['2 dorm'] = int(area_disponivel * 0.40 / tipologias['2 dorm']['area'])
-# ...
-```
+- `arima`: ARIMA clássico
+- `sarima`: SARIMA com sazonalidade
+- `sarimax`: SARIMAX com variáveis exógenas
+- `markov`: Markov-Switching
+- `ridge`: Ridge Regression
+- `lasso`: Lasso Regression
+- `random_forest`: Random Forest
+- `quantile`: Regressão Quantílica
+
+### Métodos de Ensemble
+
+- `simple_avg`: Média simples
+- `weighted_avg`: Média ponderada (padrão)
+- `median`: Mediana
+
+---
+
+## 📈 Casos de Uso
+
+### Para Incorporadoras
+- Decidir timing de lançamentos
+- Definir estratégia de precificação
+- Planejar investimentos
+- Avaliar risco de projetos
+
+### Para Investidores
+- Timing de entrada/saída
+- Alocação de capital
+- Gestão de risco
+- Due diligence
+
+### Para Analistas
+- Relatórios de mercado
+- Inteligência competitiva
+- Benchmarking
+- Forecast mensal
+
+---
+
+## ⚠️ Notas Importantes
+
+### Performance
+- Recomendado: Mínimo 60 observações mensais
+- Ideal: 100+ observações
+- Atualização: Mensal
+
+### Validação
+- Compare previsões com valores realizados
+- Ajuste parâmetros conforme necessário
+- Monitore erro de previsão (MAPE, RMSE)
+
+### Limitações
+- Não captura eventos extremos (cisnes negros)
+- Baseado em padrões históricos
+- Requer atualização regular dos dados
 
 ---
 
 ## 🤝 Contribuindo
 
-Para adicionar novos notebooks ou melhorias:
+Para melhorar os notebooks:
 
-1. Manter o padrão de design (preto e branco)
-2. Documentar bem o código
+1. Manter design minimalista (preto e branco)
+2. Documentar código claramente
 3. Incluir exemplos práticos
-4. Adicionar visualizações claras
-
----
-
-## 📝 Notas
-
-- **Performance:** Para grandes volumes de dados, considere usar `Dask` ou processar em lotes
-- **Memória:** Os notebooks foram otimizados para datasets de até 100k registros
-- **Mapas Interativos:** Arquivos HTML podem ser grandes (>5MB) para muitos pontos
-
----
-
-## 🆘 Suporte
-
-Para dúvidas ou problemas:
-
-1. Verifique se todas as dependências foram instaladas
-2. Confirme que os dados estão no formato correto
-3. Execute as células em ordem sequencial
+4. Testar com dados reais
 
 ---
 
 ## 📄 Licença
 
-Estes notebooks fazem parte do projeto Sistema DSGE-RL.
+Sistema DSGE-RL - Vitória/ES Forecast
+
+---
+
+## 🆘 Suporte
+
+**Problemas comuns:**
+
+1. **Erro ao importar módulos**
+   ```bash
+   # Certifique-se de estar no ambiente virtual
+   pip install -r requirements.txt
+   ```
+
+2. **Dados incompatíveis**
+   - Verifique formato de datas
+   - Certifique-se de índice temporal
+   - Remova valores faltantes críticos
+
+3. **Modelos não convergem**
+   - Verifique estacionaridade
+   - Reduza max_vars
+   - Aumente período histórico
 
 ---
 
 **Última atualização:** 2025-11-18
+
+**Versão:** 1.0
