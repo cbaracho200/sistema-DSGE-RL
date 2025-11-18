@@ -374,15 +374,19 @@ class DynamicFactorModel:
             q = norm.cdf(u)
 
             # Escala
-            index = min_val + (max_val - min_val) * q
+            index_values = min_val + (max_val - min_val) * q
+
+            # Garante que é Series
+            index = pd.Series(index_values, index=factor.index, name=f'IDCI_VIX_{min_val}-{max_val}')
 
         else:
             # Min-max
             f_min = factor.min()
             f_max = factor.max()
-            index = min_val + (max_val - min_val) * (factor - f_min) / (f_max - f_min)
+            index_values = min_val + (max_val - min_val) * (factor - f_min) / (f_max - f_min)
 
-        index.name = f'IDCI_VIX_{min_val}-{max_val}'
+            # Garante que é Series
+            index = pd.Series(index_values, index=factor.index, name=f'IDCI_VIX_{min_val}-{max_val}')
 
         return index
 
