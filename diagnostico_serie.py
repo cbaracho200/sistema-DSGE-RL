@@ -165,28 +165,23 @@ if __name__ == "__main__":
     is_ok = diagnose_series(idci, "IDCI-VIX")
 
     print("\n" + "="*80)
-    print("TENTANDO ARIMA")
+    print("DIAGNÓSTICO ARIMA DETALHADO")
     print("="*80)
 
     if is_ok:
-        print("\nSérie passou no diagnóstico. Tentando ARIMA...")
+        print("\nSérie passou no diagnóstico básico.")
+        print("Executando diagnóstico ARIMA completo...\n")
 
         try:
-            from forecasting.arima_models import ARIMAForecaster
-
-            model = ARIMAForecaster()
-            model.fit(idci, auto=True, verbose=True)
-
-            print("\n✅ ARIMA ajustado com sucesso!")
-            print(f"   Ordem: {model.order_}")
-            print(f"   AIC: {model.model_fit_.aic:.2f}")
+            from diagnostico_arima import full_arima_diagnosis
+            full_arima_diagnosis(idci, name="IDCI-VIX")
 
         except Exception as e:
-            print(f"\n❌ ERRO ao ajustar ARIMA: {e}")
+            print(f"\n❌ ERRO no diagnóstico ARIMA: {e}")
             import traceback
             traceback.print_exc()
     else:
-        print("\n⚠ Série NÃO passou no diagnóstico.")
+        print("\n⚠ Série NÃO passou no diagnóstico básico.")
         print("   Corrija os problemas antes de usar ARIMA.")
 
     print("\n" + "#"*80)
