@@ -54,9 +54,7 @@ print("  ✓ Relatório completo")
 CONFIG = {
     'max_vars': 5,
     'forecast_horizon': 12,
-    'granger_maxlag': 8,
-    'granger_criterion': 'bic',
-    'min_train_size': 36,
+    'ar_order': 2,
     'verbose': True
 }
 
@@ -614,8 +612,7 @@ relatorio_md += f"""
 
 ### Seleção de Variáveis
 - Teste de causalidade de Granger
-- Critério: {CONFIG['granger_criterion'].upper()}
-- Máximo de lags: {CONFIG['granger_maxlag']}
+- Top-{CONFIG['max_vars']} variáveis selecionadas
 
 ### Modelos
 - **ARIMA**: Seleção automática de ordem via AIC/BIC
