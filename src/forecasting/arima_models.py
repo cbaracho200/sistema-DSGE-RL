@@ -54,7 +54,7 @@ class ARIMAForecaster:
                         enforce_invertibility=False
                     )
 
-                fit = model.fit(disp=False)
+                fit = model.fit()
                 return fit, fit.aic, fit.bic
 
         except Exception:
@@ -268,7 +268,7 @@ class ARIMAForecaster:
                     enforce_invertibility=False
                 )
 
-            self.model_fit_ = self.model_.fit(disp=False)
+            self.model_fit_ = self.model_.fit()
 
         self.is_fitted = True
         self.has_exog = exog is not None
