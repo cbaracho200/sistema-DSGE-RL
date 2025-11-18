@@ -5,6 +5,22 @@
 
 Sistema avançado de previsão econométrica para o mercado imobiliário de Vitória/ES, combinando modelos de séries temporais, machine learning e análise de regimes.
 
+---
+
+## ⚡ Quick Start
+
+```bash
+# Instalação
+pip install -r requirements.txt
+
+# Execute seu primeiro forecast em 5 minutos
+python exemplo_basico.py
+```
+
+**📖 Novo aqui?** Veja o [**Guia de Início Rápido**](INICIO_RAPIDO.md) com exemplos em 3 níveis (Básico, Intermediário, Avançado).
+
+---
+
 ## 🎯 Objetivo
 
 Desenvolver um **índice sintético (IDCI-VIX)** que capture as condições do mercado imobiliário de Vitória e gerar **previsões 12 meses à frente** usando ensemble de múltiplos modelos.
