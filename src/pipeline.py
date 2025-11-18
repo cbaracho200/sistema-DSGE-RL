@@ -186,6 +186,14 @@ class VitoriaForecastPipeline:
                 raise ValueError("Deve chamar build_index() primeiro")
             target = self.idci_vix
 
+        # Valida que target é Series (não string)
+        if isinstance(target, str):
+            raise ValueError(f"target deve ser pd.Series, não string '{target}'. "
+                           f"Use: target = df['{target}'] ao invés de target = '{target}'")
+
+        if not isinstance(target, pd.Series):
+            raise ValueError(f"target deve ser pd.Series, recebeu {type(target)}")
+
         if exog is None and self.selected_vars is not None:
             exog = self.data_stationary[self.selected_vars]
 
@@ -214,6 +222,11 @@ class VitoriaForecastPipeline:
             except Exception as e:
                 if self.verbose:
                     print(f"⚠ Erro ao treinar ARIMA: {e}")
+                    print(f"   Tipo de target: {type(target)}")
+                    if hasattr(target, 'name'):
+                        print(f"   Nome do target: {target.name}")
+                    import traceback
+                    traceback.print_exc()
 
         # SARIMA
         if 'sarima' in models_to_train:
@@ -336,6 +349,14 @@ class VitoriaForecastPipeline:
 
         if target is None:
             target = self.idci_vix
+
+        # Valida que target é Series (não string)
+        if isinstance(target, str):
+            raise ValueError(f"target deve ser pd.Series, não string '{target}'. "
+                           f"Use: target = df['{target}'] ao invés de target = '{target}'")
+
+        if not isinstance(target, pd.Series):
+            raise ValueError(f"target deve ser pd.Series, recebeu {type(target)}")
 
         if exog is None and self.selected_vars is not None:
             exog = self.data_stationary[self.selected_vars]
