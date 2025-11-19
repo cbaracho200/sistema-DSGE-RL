@@ -13,7 +13,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from preprocessing.stationarity import StationarityTester
-from preprocessing.variable_selection import GrangerSelector
+from preprocessing.granger import GrangerSelector
 
 
 @pytest.fixture
