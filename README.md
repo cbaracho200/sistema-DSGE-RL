@@ -19,6 +19,45 @@ python exemplo_basico.py
 
 **📖 Novo aqui?** Veja o [**Guia de Início Rápido**](INICIO_RAPIDO.md) com exemplos em 3 níveis (Básico, Intermediário, Avançado).
 
+## 📚 Exemplos e Notebooks
+
+### Scripts Python
+- **`exemplo_basico.py`** - Pipeline simples de previsão
+- **`exemplo_intermediario.py`** - Com visualizações e análises
+- **`exemplo_avancado.py`** - Cross-validation e otimização
+- **`exemplo_ensemble_avancado.py`** - Ensemble learning com stacking e pesos otimizados
+- **`exemplos_target_custom.py`** - Customização de targets
+
+### Notebooks Jupyter
+Navegue para `notebooks/examples/`:
+
+1. **`01_inicio_rapido.ipynb`** - Introdução ao sistema
+2. **`02_previsao_mercado_avancada.ipynb`** - Pipeline completo com:
+   - Construção do IDCI-VIX via modelo de fatores dinâmicos
+   - Seleção de variáveis por causalidade de Granger
+   - Comparação de 5+ modelos de previsão
+   - Ensemble learning otimizado
+   - Análise de resíduos e diagnósticos
+
+3. **`03_analise_cenarios.ipynb`** - Análise de cenários e risco:
+   - Previsão por quantis (pessimista/base/otimista)
+   - Análise de sensibilidade de variáveis
+   - Simulação de Monte Carlo (2000+ cenários)
+   - Value at Risk (VaR) e CVaR
+   - Backtesting de intervalos de confiança
+
+4. **`04_otimizacao_hiperparametros.ipynb`** - Otimização avançada:
+   - Grid Search para ARIMA
+   - Random Search para Random Forest
+   - Time Series Cross-Validation
+   - Learning Curves (diagnóstico de overfitting)
+   - Comparação baseline vs otimizado
+
+### Utilitários de Diagnóstico
+- **`diagnostico_serie.py`** - Análise exploratória de séries temporais
+- **`diagnostico_arima.py`** - Diagnóstico de convergência ARIMA
+- **`ERROS_COMUNS.py`** - Guia de troubleshooting
+
 ---
 
 ## 🎯 Objetivo

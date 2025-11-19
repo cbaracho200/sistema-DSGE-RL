@@ -1,0 +1,25 @@
+# Incluir arquivos adicionais no pacote
+
+include README.md
+include LICENSE
+include requirements.txt
+include setup.py
+include MANIFEST.in
+
+# Incluir configurações
+recursive-include config *.yaml *.yml
+
+# Incluir documentação
+include INICIO_RAPIDO.md
+include EXEMPLOS_README.md
+include GUIA_RAPIDO_VARIAVEIS.md
+include GUIA_DIAGNOSTICO_ARIMA.md
+
+# Excluir arquivos desnecessários
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude .gitignore
+recursive-exclude data *
+recursive-exclude notebooks *
+recursive-exclude tests *
