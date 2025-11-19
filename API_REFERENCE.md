@@ -61,7 +61,7 @@ print(info)
 
 ### Inicialização e Seleção
 ```python
-from preprocessing.variable_selection import GrangerSelector
+from preprocessing.granger import GrangerSelector
 
 selector = GrangerSelector(max_lag=6, alpha=0.05)
 
@@ -203,7 +203,7 @@ idci_vix = 10 * (factor - factor.min()) / (factor.max() - factor.min())
 ```python
 import pandas as pd
 from preprocessing.stationarity import StationarityTester
-from preprocessing.variable_selection import GrangerSelector
+from preprocessing.granger import GrangerSelector
 from factor_model.dynamic_factor import DynamicFactorModel
 from forecasting.random_forest import RandomForestForecaster
 from evaluation.metrics import calculate_metrics
