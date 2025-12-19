@@ -7,6 +7,10 @@ Sistema avançado de previsão econométrica para o mercado imobiliário de Vit�
 
 ---
 
+![image](site-sketch (4).png)
+
+
+
 ## ⚡ Quick Start
 
 ```bash
